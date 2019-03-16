@@ -131,7 +131,7 @@ public class OmokBoard extends Panel implements MouseListener {
     }
 
     private void drawPiece(Graphics graphics, int posX, int posY, Cell cell) {
-        int status = cell.getStatus();
+        int status = cell.getType();
         if(status == Cell.NONE) return;
 
         int x = (int)(posX * cellWidth + cellMargin);
