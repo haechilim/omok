@@ -12,8 +12,10 @@ import java.util.Map;
 public class OmokBoard extends Panel implements MouseListener {
     private static final String classpath = OmokBoard.class.getResource("/").getPath();
     private static final Color colorLine = new Color(0, 0, 0);
+    private Font font = new Font("Monospaced", Font.BOLD, 30);
 
     private Board board;
+    private Label result;
     private Cell[][] cells;
     private double cellMargin;
     private double cellWidth;
@@ -34,6 +36,7 @@ public class OmokBoard extends Panel implements MouseListener {
 
         setLayout(null);
         initDimensions();
+        makeComponents();
         addMouseListener(this);
     }
 
@@ -42,6 +45,22 @@ public class OmokBoard extends Panel implements MouseListener {
         cellHeight = getHeight() / 19.0;
         cellMargin = cellWidth * 0.1;
         circleSize = cellHeight / 4.0;
+    }
+
+    private void makeComponents() {
+        result = new Label();
+        result.setVisible(false);
+        result.setFont(font);
+        result.setForeground(Color.WHITE);
+        result.setBackground(new Color(90, 0, 30));
+        result.setAlignment(Label.CENTER);
+        result.setBounds(0, getHeight()/2 - 50, getWidth(), 100);
+        add(result);
+    }
+
+    public void showResult(String text) {
+        result.setText(text);
+        result.setVisible(true);
     }
 
     public void redraw() {

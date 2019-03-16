@@ -39,6 +39,10 @@ public class OmokFrame extends JFrame implements ActionListener {
         omokBoard.redraw();
     }
 
+    public void showResult(String text) {
+        omokBoard.showResult(text);
+    }
+
     private void initDimensions() {
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         frameDim = new Dimension(screenDim.width, screenDim.height - 60);

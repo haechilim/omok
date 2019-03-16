@@ -31,6 +31,7 @@ public class Board {
     }
 
     public void cellClicked(int posX, int posY) {
+        //omokFrame.showResult("백 승리");
         omokFrame.redraw();
     }
 }
