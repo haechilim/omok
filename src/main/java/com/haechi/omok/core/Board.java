@@ -35,20 +35,20 @@ public class Board {
         return cells;
     }
 
-    private boolean cheakComplet(int posX, int posY, int direction) {
-        int count = 0;
-        int turn = whiteTurn ? Cell.WHITE : Cell.BLACK;
+    private boolean checkGameOver(int posX, int posY, int direction) {
+        int count = 1;
+        int type = whiteTurn ? Cell.WHITE : Cell.BLACK;
 
         switch (direction) {
             case HORIZONTAL:
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX + i, posY)) break;
-                    if (cells[posX + i][posY].getType() == turn) count++;
+                    if (cells[posX + i][posY].getType() == type) count++;
                     else break;
                 }
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX - i, posY)) break;
-                    if (cells[posX - i][posY].getType() == turn) count++;
+                    if (cells[posX - i][posY].getType() == type) count++;
                     else break;
                 }
                 break;
@@ -56,12 +56,12 @@ public class Board {
             case VERTICAL:
                 for (int i = 0;; i++) {
                     if(!validIndex(posX, posY + i)) break;
-                    if (cells[posX][posY + i].getType() == turn) count++;
+                    if (cells[posX][posY + i].getType() == type) count++;
                     else break;
                 }
                 for (int i = 0;; i++) {
                     if(!validIndex(posX, posY - i)) break;
-                    if (cells[posX][posY - i].getType() == turn) count++;
+                    if (cells[posX][posY - i].getType() == type) count++;
                     else break;
                 }
                 break;
@@ -69,12 +69,12 @@ public class Board {
             case DIAGONAL_RIGHT:
                 for (int i = 0;; i++) {
                     if(!validIndex(posX, posY - i)) break;
-                    if (cells[posX + i][posY - i].getType() == turn) count++;
+                    if (cells[posX + i][posY - i].getType() == type) count++;
                     else break;
                 }
                 for (int i = 0;; i++) {
                     if(!validIndex(posX - i, posY)) break;
-                    if (cells[posX - i][posY + i].getType() == turn) count++;
+                    if (cells[posX - i][posY + i].getType() == type) count++;
                     else break;
                 }
                 break;
@@ -82,27 +82,23 @@ public class Board {
             case DIAGONAL_LEFT:
                 for (int i = 0;; i++) {
                     if(!validIndex(posX, posY)) break;
-                    if (cells[posX + i][posY + i].getType() == turn) count++;
+                    if (cells[posX + i][posY + i].getType() == type) count++;
                     else break;
                 }
                 for (int i = 0;; i++) {
                     if(!validIndex(posX - i, posY - i)) break;
-                    if (cells[posX - i][posY - i].getType() == turn) count++;
+                    if (cells[posX - i][posY - i].getType() == type) count++;
                     else break;
                 }
                 break;
         }
 
-        return count >= 6;
+        return count >= 5;
     }
 
-    private boolean cheakGameOver(int posX, int posY) {
-        if(cheakComplet(posX, posY, HORIZONTAL)) return true;
-        if(cheakComplet(posX, posY, VERTICAL)) return true;
-        if(cheakComplet(posX, posY, DIAGONAL_RIGHT)) return true;
-        if(cheakComplet(posX, posY, DIAGONAL_LEFT)) return true;
-
-        return false;
+    private boolean checkGameOver(int posX, int posY) {
+        return checkGameOver(posX, posY, HORIZONTAL) || checkGameOver(posX, posY, VERTICAL) ||
+               checkGameOver(posX, posY, DIAGONAL_RIGHT) || checkGameOver(posX, posY, DIAGONAL_LEFT);
     }
 
     private boolean validIndex(int posX, int posY) {
@@ -118,7 +114,7 @@ public class Board {
 
         omokFrame.redraw();
 
-        if(cheakGameOver(posX, posY)) {
+        if(checkGameOver(posX, posY)) {
             omokFrame.showResult(whiteTurn ? "WHITE Win!" : "BLACK Win!");
             return;
         }
