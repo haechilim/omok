@@ -20,12 +20,12 @@ public class Board {
     }
 
     private void makeCells() {
-        cells = new Cell[19][];
+        cells = new Cell[20][];
 
-        for(int x = 0; x < 19; x++) {
-            cells[x] = new Cell[19];
+        for(int x = 0; x < 20; x++) {
+            cells[x] = new Cell[20];
 
-            for(int y = 0; y < 19; y++) {
+            for(int y = 0; y < 20; y++) {
                 cells[x][y] = new Cell();
             }
         }
@@ -54,12 +54,12 @@ public class Board {
                 break;
 
             case VERTICAL:
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX, posY + i)) break;
                     if (cells[posX][posY + i].getType() == type) count++;
                     else break;
                 }
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX, posY - i)) break;
                     if (cells[posX][posY - i].getType() == type) count++;
                     else break;
@@ -67,12 +67,12 @@ public class Board {
                 break;
 
             case DIAGONAL_RIGHT:
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX, posY - i)) break;
                     if (cells[posX + i][posY - i].getType() == type) count++;
                     else break;
                 }
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX - i, posY)) break;
                     if (cells[posX - i][posY + i].getType() == type) count++;
                     else break;
@@ -80,12 +80,12 @@ public class Board {
                 break;
 
             case DIAGONAL_LEFT:
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX, posY)) break;
                     if (cells[posX + i][posY + i].getType() == type) count++;
                     else break;
                 }
-                for (int i = 0;; i++) {
+                for (int i = 1;; i++) {
                     if(!validIndex(posX - i, posY - i)) break;
                     if (cells[posX - i][posY - i].getType() == type) count++;
                     else break;
