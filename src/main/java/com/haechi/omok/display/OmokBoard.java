@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OmokBoard extends Panel implements MouseListener {
-    private static final String classpath = OmokBoard.class.getResource("/").getPath();
     private static final Color colorLine = new Color(0, 0, 0);
     private Font font = new Font("Monospaced", Font.BOLD, 30);
 
@@ -86,7 +85,7 @@ public class OmokBoard extends Panel implements MouseListener {
         if(background != null) return;
 
         background = createImage(getWidth(), getHeight());
-        Image back = Util.loadImage(String.format("%s%s", classpath, "woodpattern.jpg"));
+        Image back = Util.loadImage(getClass().getClassLoader().getResource("woodpattern.jpg"));
 
         Graphics graphics = background.getGraphics();
         graphics.drawImage(back, 0, 0, getWidth(), getHeight(), null);
@@ -144,7 +143,7 @@ public class OmokBoard extends Panel implements MouseListener {
         Image image = imagePiecies.get(key);
 
         if(image == null) {
-            image = OmokPiece.getPiece(white);
+            image = Util.loadImage(getClass().getClassLoader().getResource(OmokPiece.getPiece(white)));
             imagePiecies.put(key, image);
         }
 
